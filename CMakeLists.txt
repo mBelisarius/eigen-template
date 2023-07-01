@@ -46,25 +46,27 @@ FetchContent_MakeAvailable(Eigen)
 # =========================================================
 # Targets
 
-# --- main
+# --- project
 
 add_library("${ProjectName}" STATIC
         src/information.cpp
-        include/information.h)
+        include/information.h
+        )
+
+target_include_directories("${ProjectName}" PUBLIC "${CMAKE_SOURCE_DIR}/include")
+target_include_directories("${ProjectName}" PUBLIC "${CMAKE_SOURCE_DIR}/src")
+
+target_include_directories("${ProjectName}" PUBLIC dependencies/submodules)
+add_subdirectory(dependencies)
 
 target_link_libraries("${ProjectName}" PUBLIC Eigen3::Eigen)
 
-target_include_directories("${ProjectName}" PUBLIC
-        dependencies/submodules)
-
-add_subdirectory(dependencies)
-
 target_compile_definitions("${ProjectName}" PRIVATE PROJECT_NAMESPACE=${ProjectNamespace})
 
-add_executable("${ProjectName}-main"
-        src/main.cpp)
+# --- main
 
- target_link_libraries("${ProjectName}-main" PUBLIC "${ProjectName}")
+add_executable("${ProjectName}-main" src/main.cpp)
+target_link_libraries("${ProjectName}-main" PUBLIC "${ProjectName}")
 
 # --- gtest
 
@@ -72,11 +74,9 @@ enable_testing()
 
 add_executable("${ProjectName}-test"
         test/sanity_test.cpp
-)
+        )
 
-target_link_libraries("${ProjectName}-test"
-        gtest_main
-        "${ProjectName}")
+target_link_libraries("${ProjectName}-test" gtest_main "${ProjectName}")
 
 include(GoogleTest)
 gtest_discover_tests("${ProjectName}-test")

@@ -1,4 +1,4 @@
-#include "../include/information.h"
+#include "information.h"
 #include <Eigen/Dense>
 #include <iostream>
 

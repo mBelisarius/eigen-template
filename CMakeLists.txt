@@ -13,6 +13,18 @@ project("${ProjectName}")
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_compile_options(-Wall -Werror -Wno-error=uninitialized
+        $<$<CONFIG:RELEASE>:-O3>
+        $<$<CONFIG:RELEASE>:-DNDEBUG>
+        $<$<CONFIG:RELWITHDEBINFO>:-O2>
+        $<$<CONFIG:RELWITHDEBINFO>:-DNDEBUG>
+        $<$<CONFIG:RELWITHDEBINFO>:-g>
+        $<$<CONFIG:MINSIZEREL>:-Oz>
+        $<$<CONFIG:MINSIZEREL>:-DNDEBUG>
+        $<$<CONFIG:DEBUG>:-Og>
+        $<$<CONFIG:DEBUG>:-g>
+        )
+
 # =========================================================
 # gtest
 

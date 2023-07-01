@@ -11,7 +11,7 @@ set(ProjectNamespace "eig_tmpl")
 
 project("${ProjectName}")
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # =========================================================
 # gtest

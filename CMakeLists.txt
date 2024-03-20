@@ -23,14 +23,14 @@ add_compile_options(-Wall -Werror -Wno-error=uninitialized
         $<$<CONFIG:MINSIZEREL>:-DNDEBUG>
         $<$<CONFIG:DEBUG>:-Og>
         $<$<CONFIG:DEBUG>:-g>
-        )
+)
 
 # =========================================================
 # gtest
 
 include(FetchContent)
 FetchContent_Declare(googletest
-        URL https://github.com/google/googletest/archive/refs/tags/v1.13.0.zip)
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip)
 
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 set(GTEST_FORCE_SHARED_CRT ON CACHE BOOL "" FORCE)
@@ -63,7 +63,7 @@ FetchContent_MakeAvailable(Eigen)
 add_library("${ProjectName}" STATIC
         src/information.cpp
         include/information.h
-        )
+)
 
 target_include_directories("${ProjectName}" PUBLIC "${CMAKE_SOURCE_DIR}/include")
 target_include_directories("${ProjectName}" PUBLIC "${CMAKE_SOURCE_DIR}/src")
@@ -86,7 +86,7 @@ enable_testing()
 
 add_executable("${ProjectName}-test"
         test/sanity_test.cpp
-        )
+)
 
 target_link_libraries("${ProjectName}-test" gtest_main "${ProjectName}")
 
